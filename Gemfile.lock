@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dependencies (0.0.1.pre.alpha)
+    nite_dependencies (0.0.1.pre.alpha)
       rails (~> 4.1)
 
 GEM
@@ -104,7 +104,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  dependencies!
+  nite_dependencies!
   sqlite3
 
 BUNDLED WITH

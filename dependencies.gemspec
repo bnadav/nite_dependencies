@@ -1,11 +1,11 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "dependencies/version"
+require "nite_dependencies/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "dependencies"
+  s.name        = "nite_dependencies"
   s.version     = "0.0.1-alpha" 
   s.authors     = ["Nadav Blum"]
   s.email       = ["nadav@nite.org.il"]
