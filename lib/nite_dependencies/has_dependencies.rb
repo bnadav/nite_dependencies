@@ -16,7 +16,7 @@ module Nite
       end
 
       module LocalInstanceMethods
-        # getters
+        # getters - fetch all dependecies of self
         def dependencies
           klass = self.class
 
@@ -31,6 +31,10 @@ module Nite
 
         end
 
+        def dependent?(elem)
+          Dependency.dependent?(self, elem)
+        end
+
         # setters
         def add_dependency(*args)
           args.each do |element|
@@ -38,7 +42,7 @@ module Nite
               raise "Dependecy allowed only for objects of the same class: #{self} <--> #{element}"
             end
 
-            Nite::Dependency.add(self, element)
+            Dependency.add(self, element)
 
           end
         end
