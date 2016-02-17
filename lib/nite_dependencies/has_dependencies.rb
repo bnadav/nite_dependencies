@@ -21,10 +21,7 @@ module Nite
           klass = self.class
 
           join_clause = <<-QUERY
-              INNER JOIN nite_dependencies
-              ON (dependentable_type=\"#{klass}\" 
-              AND ((dependentable_a_id = #{self.id}) OR
-              (dependentable_b_id = #{self.id})))
+              INNER JOIN nite_dependencies ON (dependentable_type=\"#{klass}\" AND ((dependentable_a_id = #{self.id}) OR (dependentable_b_id = #{self.id})))
           QUERY
 
           klass.joins(join_clause)
