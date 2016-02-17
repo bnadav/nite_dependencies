@@ -1,6 +1,7 @@
-class CreateDependencies < ActiveRecord::Migration
+class CreateNiteDependencies < ActiveRecord::Migration
   def change
-    create_table :dependencies do |t|
+    create_table :nite_dependencies do |t|
+
       t.string :dependentable_type
 
       t.integer :dependentable_a_id;
@@ -8,6 +9,7 @@ class CreateDependencies < ActiveRecord::Migration
       t.integer :dependentable_b_id;
 
       t.timestamps
+
     end
   end
 end

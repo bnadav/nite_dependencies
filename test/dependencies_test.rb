@@ -15,7 +15,7 @@ class DependenciesTest < ActiveSupport::TestCase
   def teardown
     Unit.delete_all
     Item.delete_all
-    Dependency.delete_all
+    Nite::Dependency.delete_all
   end
 
   def test_dependencies_is_empty_if_non_defined
@@ -25,44 +25,44 @@ class DependenciesTest < ActiveSupport::TestCase
 
   def test_creation_of_dependency_succeeds_if_args_are_legal
     assert_nothing_raised do
-      Dependency.add(@u1, @u2)
+      Nite::Dependency.add(@u1, @u2)
     end
-    assert_equal 1, Dependency.count
+    assert_equal 1, Nite::Dependency.count
   end
 
   def test_creation_of_dependency_fails_if_class_do_not_agree
     u = Unit.new(id: 1)
     i = Item.new(id: 1)
     assert_raises do
-      Dependency.add(u, i)
+      Nite::Dependency.add(u, i)
     end
-    assert_equal 0, Dependency.count
+    assert_equal 0, Nite::Dependency.count
   end
 
   def test_creation_of_dependency_fails_if_ids_are_the_same
     u1 = Unit.new(id: 1)
     u2 = Unit.new(id: 1)
     assert_raises do
-      Dependency.add(u1, u2)
+      Nite::Dependency.add(u1, u2)
     end
-    assert_equal 0, Dependency.count
+    assert_equal 0, Nite::Dependency.count
   end
 
   def test_creation_of_dependency_fails_if_added_twice
-    Dependency.add(@u1, @u2)
-    Dependency.add(@u1, @u2)
-    assert_equal 1, Dependency.count
+    Nite::Dependency.add(@u1, @u2)
+    Nite::Dependency.add(@u1, @u2)
+    assert_equal 1, Nite::Dependency.count
   end
 
   def test_creation_of_two_sets_of_dependencies_succeeds
-    Dependency.add(@u1, @u2)
-    Dependency.add(@u3, @u4)
-    assert_equal 2, Dependency.count
+    Nite::Dependency.add(@u1, @u2)
+    Nite::Dependency.add(@u3, @u4)
+    assert_equal 2, Nite::Dependency.count
   end
 
   def test_order_of_parameters_does_not_matter
-    d1 = Dependency.add(@u1, @u2)
-    d2 = Dependency.add(@u4, @u3)
+    d1 = Nite::Dependency.add(@u1, @u2)
+    d2 = Nite::Dependency.add(@u4, @u3)
     assert_equal d1.dependentable_a_id, @u1.id
     assert_equal d1.dependentable_b_id, @u2.id
     assert_equal d2.dependentable_a_id, @u3.id

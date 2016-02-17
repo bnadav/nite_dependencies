@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217101510) do
-
-  create_table "dependencies", force: :cascade do |t|
-    t.string   "dependentable_type"
-    t.integer  "dependentable_a_id"
-    t.integer  "dependentable_b_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20160217143054) do
 
   create_table "items", force: :cascade do |t|
     t.integer  "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "nite_dependencies", force: :cascade do |t|
+    t.string   "dependentable_type"
+    t.integer  "dependentable_a_id"
+    t.integer  "dependentable_b_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "units", force: :cascade do |t|

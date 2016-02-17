@@ -21,7 +21,7 @@ module Nite
           klass = self.class
 
           join_clause = <<-QUERY
-              INNER JOIN dependencies
+              INNER JOIN nite_dependencies
               ON (dependentable_type=\"#{klass}\" 
               AND ((dependentable_a_id = #{self.id}) OR
               (dependentable_b_id = #{self.id})))
@@ -32,7 +32,7 @@ module Nite
         end
 
         def dependent?(elem)
-          Dependency.dependent?(self, elem)
+          Nite::Dependency.dependent?(self, elem)
         end
 
         # setters
@@ -42,7 +42,7 @@ module Nite
               raise "Dependecy allowed only for objects of the same class: #{self} <--> #{element}"
             end
 
-            Dependency.add(self, element)
+            Nite::Dependency.add(self, element)
 
           end
         end

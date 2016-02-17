@@ -8,7 +8,7 @@ module Nite
       source_root File.expand_path('../templates', __FILE__)
 
       DEPENDENCIES_MIGRATIONS = %w(
-      create_dependencies
+      create_nite_dependencies
       )
 
       def migrations
