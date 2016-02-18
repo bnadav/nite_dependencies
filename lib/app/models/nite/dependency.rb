@@ -17,10 +17,10 @@ module Nite
     #   dependentable_a_id: the smaller id of the the models ids
     #   dependentable_b_id: the larger id of the the models ids
     def self.add(first, second)
-      if first.id == second.id
+      if same_id?(first, second)
         raise "Can not add self dependency for #{first} and #{second}" 
       end
-      if first.class != second.class
+      unless same_class?(first, second)
         raise "Dependecy allowed only for objects of the same class: #{first} <--> #{second}"
       end
       ordered = self.order_elements(first, second)
