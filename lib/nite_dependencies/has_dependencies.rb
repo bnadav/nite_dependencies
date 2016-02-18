@@ -34,15 +34,20 @@ module Nite
       end
 
       module LocalInstanceMethods
+        include ActiveSupport::Inflector 
         # getters - fetch all dependecies of self
         def dependencies
           klass = self.class
 
+          tableized_id = klass.to_s.tableize + ".id"
+
           join_clause = <<-QUERY
-              INNER JOIN nite_dependencies ON (dependentable_type=\"#{klass}\" AND ((dependentable_a_id = #{self.id}) OR (dependentable_b_id = #{self.id})))
+              INNER JOIN nite_dependencies 
+              ON ((#{tableized_id}=dependentable_a_id) OR (#{tableized_id}=dependentable_b_id)) 
+              AND (dependentable_type=\"#{klass}\" AND ((dependentable_a_id = #{self.id}) OR (dependentable_b_id = #{self.id})))
           QUERY
 
-          klass.joins(join_clause)
+          klass.where("#{tableized_id}!=#{self.id}").joins(join_clause)
 
         end
 
