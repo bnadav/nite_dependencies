@@ -49,8 +49,10 @@ class DependenciesTest < ActiveSupport::TestCase
   end
 
   def test_creation_of_dependency_fails_if_added_twice
-    Nite::Dependency.add(@u1, @u2)
-    Nite::Dependency.add(@u1, @u2)
+    v = Nite::Dependency.add(@u1, @u2)
+    assert v.valid?
+    v = Nite::Dependency.add(@u1, @u2)
+    assert_not v.valid?
     assert_equal 1, Nite::Dependency.count
   end
 
