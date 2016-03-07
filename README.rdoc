@@ -1,3 +1,57 @@
-= Dependencies
+= Nite Dependencies
 
-This project rocks and uses MIT-LICENSE.
+The plugin adds 'dependency' relations between objects.
+
+Here dependency relation is:
+
+* Symmetric - if _a_ depends on _b_, then _b_ depends on _a_
+* Not transitive - if _a_ depends on _b_, and _b_ depends on _c_ , it does *not* mean that _a_ depends on _c_.
+Such a dependency should be defined separately if needed.
+
+== Installation
+Add to your Gemfile
+  gem 'nite_dependencies'
+then
+  bundle install
+then
+  rails generate nite:dependencies:install
+then 
+  rake db:migrate
+
+The installation process will add a table to the database named
+  nite_dpendencies
+
+== Model
+The plugin adds a model called Dependency.
+This model represent a single dependency between two elements.
+
+== Restrictions
+A dependency is only allowed between two objects of the same class.
+
+== Name Space
+All models in gem, are namespaced under Nite.
+
+== Methods
+The following methods are made available by the plugin
+
+* Add a dependency between 'first' and 'second' objects
+  Nite::Dependency.add(first, second) 
+* Check existence of a dependency between 'first' and 'second' objects
+  Nite::Dependency.dependent?(first, second)
+
+On top of this the plugin exposes a class method named 
+  has_dependencies
+that can be called by Active Record subclasses.
+When called, the following three instance methods will be added to the
+calling class instance (say 'element'):
+
+* List all dependencies
+  element#dependencies 
+* add a dependency to another element
+  element#add_dependency(element_a)
+* Check for dependency 
+  element#dependent?(element_a)
+
+
+
+
