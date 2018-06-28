@@ -6,7 +6,7 @@ require "nite_dependencies/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "nite_dependencies"
-  s.version     = "0.0.1-alpha" 
+  s.version     = "0.0.1"
   s.authors     = ["Nadav Blum"]
   s.email       = ["nadav@nite.org.il"]
   s.homepage    = ""
