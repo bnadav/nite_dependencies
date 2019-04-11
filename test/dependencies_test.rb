@@ -98,4 +98,16 @@ class DependenciesTest < ActiveSupport::TestCase
     assert u1.dependent?(u2)
     assert_not u1.dependent?(u3)
   end
+
+  def test_depndencies_of_collection
+    u1 = Unit.create
+    u2 = Unit.create
+    u3 = Unit.create
+    u4 = Unit.create
+    u1.add_dependency(u2)
+    u3.add_dependency(u4)
+    calulated_dependecies = Nite::Dependency.for_collection([u1,u3])
+    expected_depndencies = [u2, u4]
+    assert_equal expected_depndencies.sort, calulated_dependecies.sort
+  end
 end

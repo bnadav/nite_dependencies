@@ -8,6 +8,7 @@ module Nite
   # * Trying to create a dependency between an object to itself (same id)
   # Validation of fails for duplicate dependencies
   class Dependency < ActiveRecord::Base
+    extend ActiveSupport::Inflector 
 
     # prefix table with nite so it is nite_dependencies
     def self.table_name_prefix
@@ -56,6 +57,32 @@ module Nite
       ordered = self.order_elements(first, second)
       Nite::Dependency.where(dependentable_type: first.class, dependentable_a_id: ordered.first.id,
                        dependentable_b_id: ordered.last.id).size == 1
+
+    end
+
+    # Find dependencies of all elements in a given collection. Done via single database query.
+    # All elements in the collectin must be of the same class or an exception will be raised.
+    #
+    # ==== Attributes
+    # * +collection+ - collection of elements of the same class
+    def self.for_collection(collection)
+      return [] if collection.blank? # = nil? or empty?
+      klass = collection.first.class
+      if( collection.any?{|el| el.class != klass} )
+        raise "Dependecies for collection require that all object classes in the collection will be the same"
+      end
+
+      klass_s = klass.to_s
+      tableized_id = tableize(klass.to_s) + ".id"
+
+      ids = collection.map(&:id).join(",")
+
+      join_clause = <<-QUERY
+              INNER JOIN nite_dependencies 
+              ON ((#{tableized_id}=dependentable_a_id) OR (#{tableized_id}=dependentable_b_id)) 
+              AND (dependentable_type=\"#{klass}\") AND ((dependentable_a_id IN (#{ids})) OR (dependentable_b_id IN (#{ids})))
+      QUERY
+      klass.where("#{tableized_id} NOT IN (#{ids})").joins(join_clause)
 
     end
 
