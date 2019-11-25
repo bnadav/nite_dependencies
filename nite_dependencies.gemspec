@@ -6,7 +6,7 @@ require "nite_dependencies/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "nite_dependencies"
-  s.version     = "0.0.1"
+  s.version     = "0.0.2"
   s.authors     = ["Nadav Blum"]
   s.email       = ["nadav@nite.org.il"]
   s.homepage    = ""
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   # s.add_dependency "rails", "~> 4.2.5.1"
-  s.add_dependency "rails", "~> 4.1"
+  s.add_dependency "rails","~>5.0"   # "~> 4.1"
 
   s.add_development_dependency "sqlite3"
 end
